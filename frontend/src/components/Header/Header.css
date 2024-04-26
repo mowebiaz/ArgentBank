@@ -1,0 +1,26 @@
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 20px;
+}
+
+/* voir si le nesting fonctionne */
+header a {
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+/* à vérifier avec les navlink */
+header a.active {
+    color: #42b983;
+}
+
+.nav-item {
+    text-decoration: none;
+    margin-right: 0.5rem;
+}
+
+.nav-item:hover {
+    text-decoration: underline;
+}
