@@ -24,3 +24,7 @@ header a.active {
 .nav-item:hover {
     text-decoration: underline;
 }
+
+.fa-circle-user {
+    margin-right: 0.5rem;
+}
