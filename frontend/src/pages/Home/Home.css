@@ -1,0 +1,14 @@
+main {
+    flex: 1;
+}
+
+.cards {
+    display: flex;
+    flex-direction: column;
+}
+
+@media (min-width: 920px) {
+    .cards {
+        flex-direction: row;
+    }
+}

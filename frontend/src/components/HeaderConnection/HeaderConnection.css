@@ -1,0 +1,16 @@
+.main {
+    flex: 1;
+}
+
+.bg-dark {
+    background-color: #12002b;
+}
+
+.header-connection {
+    color: #fff;
+    margin-bottom: 2rem;
+}
+
+.edit-button {
+    padding: 10px;
+}
