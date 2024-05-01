@@ -1,5 +1,4 @@
 import { Account } from '../../components/Account/Account'
-import { Form } from '../../components/Form/Form'
 import { HeaderConnection } from '../../components/HeaderConnection/HeaderConnection'
 import './Profile.css'
 
@@ -10,7 +9,7 @@ export function Profile() {
       <h2 className="sr-only">Accounts</h2>
       <Account
         title="Argent Bank Checking (x8349)"
-        amount="2,082.79"
+        amount="$2,082.79"
         description="Available Balance"
       />
       <Account

@@ -3,5 +3,30 @@ button {
     color: #fff;
     border-color: #00bc77;
     font-weight: bold;
+}
 
+.sign-in-button {
+    display: block;
+    width: 100%;
+    padding: 8px;
+    font-size: 1.1rem;
+    margin-top: 1rem;
+}
+
+.edit-button {
+    padding: 10px;
+}
+
+.transaction-button {
+    display: block;
+    width: 100%;
+    padding: 8px;
+    font-size: 1.1rem;
+    margin-top: 1rem;
+}
+
+@media (min-width: 720px) {
+    .transaction-button {
+        width: 200px;
+    }
 }

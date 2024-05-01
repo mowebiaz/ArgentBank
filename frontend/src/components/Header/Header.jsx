@@ -4,7 +4,7 @@ import { faCircleUser } from '@fortawesome/free-solid-svg-icons'
 import { Logo } from '../Logo/Logo'
 import './Header.css'
 
-// à modifier en fonction du status
+// à modifier en fonction du status connecté ou pas
 export function Header() {
   return (
     <header>

@@ -35,22 +35,11 @@
     flex: 1;
 }
 
-.transaction-button {
-    display: block;
-    width: 100%;
-    padding: 8px;
-    font-size: 1.1rem;
-    margin-top: 1rem;
-}
-
 @media (min-width: 720px) {
     .account {
         flex-direction: row;
     }
     .account-content-wrapper.cta {
         flex: 0;
-    }
-    .transaction-button {
-        width: 200px;
     }
 }

@@ -8,9 +8,16 @@ export function HeaderConnection() {
       <h1>
         Welcome back
         <br />
+        {/*         nom en fonction de l'utilsateur connecté
+         */}
         Tony Jarvis!
       </h1>
-      <Button className='edit-button' text="Edit Name" />
+      {/*       appeler le formulaire au clic sur le bouton
+       */}
+      <Button
+        className="edit-button"
+        text="Edit Name"
+      />
     </div>
   )
 }
