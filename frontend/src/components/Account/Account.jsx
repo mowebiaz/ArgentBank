@@ -13,8 +13,9 @@ export function Account({ title, amount, description }) {
       <div className="account-content-wrapper cta">
         <Button
           className="transaction-button"
-          text="View transactions"
-        />
+          >
+            View transactions
+          </Button>
       </div>
     </section>
   )

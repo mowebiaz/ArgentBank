@@ -5,6 +5,14 @@ button {
     font-weight: bold;
 }
 
+button:hover {
+    cursor: pointer;
+}
+
+button[disabled] {
+    cursor: not-allowed;
+}
+
 .sign-in-button {
     display: block;
     width: 100%;

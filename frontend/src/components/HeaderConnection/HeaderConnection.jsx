@@ -16,8 +16,9 @@ export function HeaderConnection() {
        */}
       <Button
         className="edit-button"
-        text="Edit Name"
-      />
+        >
+          Edit Name
+        </Button>
     </div>
   )
 }
