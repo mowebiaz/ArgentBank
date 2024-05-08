@@ -6,6 +6,7 @@ import { ErrorPage } from './pages/ErrorPage'
 import { Header } from './components/Header/Header'
 import { Footer } from './components/Footer/Footer'
 import './App.css'
+import { ProtectedRoute } from './components/ProtectedRoute/ProtectedRoute'
 
 function App() {
   return (
@@ -21,11 +22,13 @@ function App() {
             path="/login"
             element={<Login />}
           />
-          <Route
-            // faire une private route
-            path="/profile"
-            element={<Profile />}
-          />
+          <Route element={<ProtectedRoute />}>
+            <Route
+              path="/profile"
+              element={<Profile />}
+            />
+          </Route>
+
           <Route
             path="*"
             element={<ErrorPage />}

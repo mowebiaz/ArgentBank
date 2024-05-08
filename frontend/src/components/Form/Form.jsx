@@ -3,9 +3,10 @@ import { Input } from '../Input/Input'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleUser } from '@fortawesome/free-solid-svg-icons'
 import './Form.css'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { userLogin } from '../../features/authSlice'
+import { NavLink, useNavigate } from 'react-router-dom'
 
 export function Form() {
   const [email, setEmail] = useState('')
@@ -16,6 +17,16 @@ export function Form() {
     (state) => state.auth
   )
   const dispatch = useDispatch()
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate('/profile')
+    }
+    /*     if (token) {
+      navigate('/profile')
+    } */
+  }, [isAuthenticated, navigate])
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -27,6 +38,14 @@ export function Form() {
     }
   }
   // voir la ft form reset
+  if (isAuthenticated) {
+    return (
+      <section className="sign-in-content">
+        <p>You are logged in</p>
+        <NavLink to={'/profile'}>My Profile</NavLink>
+      </section>
+    )
+  }
 
   return (
     <section className="sign-in-content">
@@ -38,13 +57,14 @@ export function Form() {
       <form onSubmit={handleSubmit}>
         {/*       {error && <Error>{error}</Error>}
          */}
-         {error && <p>Incorrect login and/or password</p>}
+        {error && <p>Incorrect login and/or password</p>}
 
         <Input
           className="input-wrapper"
           label="Email"
           inputType="text"
           content="Email"
+          autoComplete="email"
           onChange={(e) => setEmail(e.target.value)}
         />
         <Input
@@ -52,6 +72,7 @@ export function Form() {
           label="Password"
           inputType="password"
           content="Password"
+          autoComplete="current-password"
           onChange={(e) => setPassword(e.target.value)}
         />
         <Input

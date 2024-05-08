@@ -8,9 +8,7 @@ export function HeaderConnection() {
       <h1>
         Welcome back
         <br />
-        {/*         nom en fonction de l'utilsateur connecté
-         */}
-        Tony Jarvis!
+        firstName lastName!
       </h1>
       {/*       appeler le formulaire au clic sur le bouton
        */}
