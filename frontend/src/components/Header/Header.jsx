@@ -9,7 +9,6 @@ import './Header.css'
 import { useDispatch, useSelector } from 'react-redux'
 import { logout } from '../../features/authSlice'
 
-// à modifier en fonction du status connecté ou pas
 export function Header() {
   const { token, isAuthenticated, loading, error } = useSelector(
     (state) => state.auth
@@ -18,7 +17,7 @@ export function Header() {
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
-  const handleLogout = (e) => {
+  const handleLogout = () => {
     // e.preventDefault() // empêche la navigation
     dispatch(logout())
     navigate('/')
@@ -36,13 +35,6 @@ export function Header() {
             <FontAwesomeIcon icon={faCircleUser} />
             firstname
           </NavLink>
-          {/*           <NavLink
-            className={'nav-item'}
-            onClick={handleLogout}
-          >
-            <FontAwesomeIcon icon={faRightFromBracket} />
-            Sign Out
-          </NavLink> */}
           <button
             className={'sign-out-button'}
             onClick={handleLogout}

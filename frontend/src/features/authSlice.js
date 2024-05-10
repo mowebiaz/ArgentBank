@@ -11,7 +11,7 @@ const initialState = {
   // user: null, // Initially, no user is logged in
   // userInfo: {}, // for user object
   token: null, // for storing the JWT
-  isAuthenticated: false, // for monitoring the login process.
+  isAuthenticated: false, 
   loading: false,
   error: null,
 }
@@ -27,8 +27,8 @@ export const userLogin = createAsyncThunk(
         password,
       })
       // console.log(data)
-      const storage = rememberMe ? localStorage : sessionStorage;
-      storage.setItem('token', data.body.token)
+      // const storage = rememberMe ? localStorage : sessionStorage;
+      // storage.setItem('token', data.body.token)
       return data
     } catch (error) {
       return rejectWithValue(error.message)
@@ -47,22 +47,22 @@ const authSlice = createSlice({
       // state.userInfo = null
       // state.user = null
       state.error = null
-      // à revoir
-      localStorage.removeItem('token')
-      sessionStorage.removeItem('token')
+      //localStorage.removeItem('token')
+      //sessionStorage.removeItem('token')
       
     },
   },
   extraReducers: (builder) => {
     builder.addCase(userLogin.pending, (state) => {
       state.loading = true
-      // state.error = null
+      state.error = null
     })
     builder.addCase(userLogin.fulfilled, (state, action) => {
-      state.loading = false
-      state.isAuthenticated = true
       // state.user = action.payload.user
       state.token = action.payload.body.token
+      state.isAuthenticated = true
+      state.loading = false
+      state.error = null
     })
     builder.addCase(userLogin.rejected, (state, action) => {
       state.loading = false
