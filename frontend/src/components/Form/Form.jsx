@@ -1,32 +1,49 @@
-import { Button } from '../Button/Button'
-import { Input } from '../Input/Input'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleUser } from '@fortawesome/free-solid-svg-icons'
 import './Form.css'
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { userLogin } from '../../features/authSlice'
 import { NavLink, useNavigate } from 'react-router-dom'
+import { fetchUserProfile, userLogin } from '../../features/authSlice'
+import { Input } from '../Input/Input'
+import { Button } from '../Button/Button'
 
 export function Form() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [rememberMe, setRememberMe] = useState(false)
   // à revoir
-  const { token, isAuthenticated, loading, error } = useSelector(
+  const { isAuthenticated, loading, error } = useSelector(
     (state) => state.auth
   )
   const dispatch = useDispatch()
   const navigate = useNavigate()
-
+  /* 
   useEffect(() => {
     if (isAuthenticated) {
+      dispatch(fetchUserProfile())
       navigate('/profile')
     }
     /*     if (token) {
       navigate('/profile')
-    } */
-  }, [isAuthenticated, navigate])
+    } 
+  }, [isAuthenticated, dispatch, navigate]) */
+
+  useEffect(() => {
+    const fetchAndNavigate = async () => {
+      if (isAuthenticated) {
+        try {
+          await dispatch(fetchUserProfile()).unwrap()
+          navigate('/profile')
+        } catch (error) {
+          console.error('Failed to fetch user profile:', error)
+          // Gérer l'erreur, peut-être en affichant un message à l'utilisateur
+        }
+      }
+    }
+
+    fetchAndNavigate()
+  }, [isAuthenticated, dispatch, navigate])
 
   const handleSubmit = async (e) => {
     e.preventDefault()

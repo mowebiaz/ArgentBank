@@ -7,12 +7,11 @@ import {
 import { Logo } from '../Logo/Logo'
 import './Header.css'
 import { useDispatch, useSelector } from 'react-redux'
-import { logout } from '../../features/authSlice'
+import { fetchUserProfile, logout } from '../../features/authSlice'
+import { useEffect } from 'react'
 
 export function Header() {
-  const { token, isAuthenticated, loading, error } = useSelector(
-    (state) => state.auth
-  )
+  const { user, token, isAuthenticated } = useSelector((state) => state.auth)
 
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -23,17 +22,23 @@ export function Header() {
     navigate('/')
   }
 
+/*   useEffect(() => {
+    if (isAuthenticated) {
+      dispatch(fetchUserProfile())
+    }
+  }) */
+
   return (
     <header>
       <Logo />
-      {isAuthenticated ? (
+      {user ? (
         <nav>
           <NavLink
             to={'/profile'}
             className={'nav-item'}
           >
             <FontAwesomeIcon icon={faCircleUser} />
-            firstname
+            {user.firstName}
           </NavLink>
           <button
             className={'sign-out-button'}

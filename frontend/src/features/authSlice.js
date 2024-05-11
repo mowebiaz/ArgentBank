@@ -9,9 +9,9 @@ import axios from 'axios'
 
 const initialState = {
   // user: null, // Initially, no user is logged in
-  // userInfo: {}, // for user object
+  user: null, // for user object
   token: null, // for storing the JWT
-  isAuthenticated: false, 
+  isAuthenticated: false,
   loading: false,
   error: null,
 }
@@ -22,7 +22,7 @@ export const userLogin = createAsyncThunk(
   'auth/login',
   async ({ email, password, rememberMe }, { rejectWithValue }) => {
     try {
-      const {data} = await axios.post(`${backendURL}/user/login`, {
+      const { data } = await axios.post(`${backendURL}/user/login`, {
         email,
         password,
       })
@@ -36,23 +36,43 @@ export const userLogin = createAsyncThunk(
   }
 )
 
+export const fetchUserProfile = createAsyncThunk(
+  'auth/profile',
+  async (_, { getState, rejectWithValue }) => {
+    const { token } = getState().auth
+    try {
+      const response = await axios.post(
+        `${backendURL}/user/profile`,
+        {},
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      )
+      //console.log('response', response)
+      //console.log('response.data', response.data)
+      return response.data.body
+    } catch (error) {
+      return rejectWithValue(error.message)
+    }
+  }
+)
+
 const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
     logout: (state) => {
+      state.user = null
       state.token = null
       state.isAuthenticated = false
       state.loading = false
-      // state.userInfo = null
-      // state.user = null
       state.error = null
       //localStorage.removeItem('token')
       //sessionStorage.removeItem('token')
-      
     },
   },
   extraReducers: (builder) => {
+    // Login
     builder.addCase(userLogin.pending, (state) => {
       state.loading = true
       state.error = null
@@ -65,6 +85,20 @@ const authSlice = createSlice({
       state.error = null
     })
     builder.addCase(userLogin.rejected, (state, action) => {
+      state.loading = false
+      state.error = action.payload
+    })
+    // Profile
+    builder.addCase(fetchUserProfile.pending, (state) => {
+      state.loading = true
+      state.error = null
+    })
+    builder.addCase(fetchUserProfile.fulfilled, (state, action) => {
+      state.user = action.payload
+      state.loading = false
+      state.error = null
+    })
+    builder.addCase(fetchUserProfile.rejected, (state, action) => {
       state.loading = false
       state.error = action.payload
     })
