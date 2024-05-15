@@ -61,12 +61,15 @@ export const updateUserName = createAsyncThunk(
   async (userName, { getState, rejectWithValue }) => {
     const { token } = getState().auth
     try {
-      const response = await axios.put(`${backendURL}/user/profile`, {
-        userName: userName,
-      }, 
-      {
-        headers: { Authorization: `Bearer ${token}` },
-      })
+      const response = await axios.put(
+        `${backendURL}/user/profile`,
+        {
+          userName: userName,
+        },
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      )
       console.log('response.data', response.data)
       console.log(response.data.body)
       console.log(response.data.body.userName)
@@ -89,6 +92,9 @@ const authSlice = createSlice({
       state.error = null
       //localStorage.removeItem('token')
       //sessionStorage.removeItem('token')
+    },
+    resetError: (state) => {
+      state.error = null
     },
   },
   extraReducers: (builder) => {
@@ -122,6 +128,10 @@ const authSlice = createSlice({
       state.loading = false
       state.error = action.payload
     })
+<<<<<<< HEAD
+=======
+
+>>>>>>> 43ca55f (add functionality for editing UserName)
     // Update user name
     builder.addCase(updateUserName.pending, (state) => {
       state.loading = true
@@ -140,4 +150,4 @@ const authSlice = createSlice({
 })
 
 export default authSlice.reducer
-export const { logout } = authSlice.actions
+export const { logout, resetError } = authSlice.actions

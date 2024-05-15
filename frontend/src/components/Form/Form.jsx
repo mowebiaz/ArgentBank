@@ -1,21 +1,18 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCircleUser } from '@fortawesome/free-solid-svg-icons'
-import './Form.css'
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { NavLink, useNavigate } from 'react-router-dom'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCircleUser } from '@fortawesome/free-solid-svg-icons'
 import { fetchUserProfile, userLogin } from '../../features/authSlice'
 import { Input } from '../Input/Input'
 import { Button } from '../Button/Button'
+import './Form.css'
 
 export function Form() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [rememberMe, setRememberMe] = useState(false)
-  // à revoir
-  const { isAuthenticated, loading, error } = useSelector(
-    (state) => state.auth
-  )
+  const { isAuthenticated, loading, error } = useSelector((state) => state.auth)
   const dispatch = useDispatch()
   const navigate = useNavigate()
 

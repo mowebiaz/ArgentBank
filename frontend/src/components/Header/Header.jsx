@@ -1,13 +1,15 @@
+import { useDispatch, useSelector } from 'react-redux'
 import { NavLink, useNavigate } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faCircleUser,
   faRightFromBracket,
 } from '@fortawesome/free-solid-svg-icons'
-import { useDispatch, useSelector } from 'react-redux'
+
 import { Logo } from '../Logo/Logo'
 import './Header.css'
 import { logout } from '../../features/authSlice'
+
 
 export function Header() {
   const { user } = useSelector((state) => state.auth)

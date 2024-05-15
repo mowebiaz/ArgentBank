@@ -1,8 +1,10 @@
+
 import { useSelector } from 'react-redux'
 import { useState } from 'react'
 import { Button } from '../Button/Button'
 import './HeaderProfile.css'
 import { EditUserInfo } from '../EditUserInfo/EditUserInfo'
+
 
 // ajouter le name en fonction du state
 export function HeaderProfile() {

@@ -5,8 +5,8 @@ import { Profile } from './pages/Profile/Profile'
 import { ErrorPage } from './pages/ErrorPage'
 import { Header } from './components/Header/Header'
 import { Footer } from './components/Footer/Footer'
-import './App.css'
 import { ProtectedRoute } from './components/ProtectedRoute/ProtectedRoute'
+import './App.css'
 
 function App() {
   return (

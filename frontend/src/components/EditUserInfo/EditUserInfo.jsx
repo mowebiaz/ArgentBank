@@ -2,9 +2,9 @@ import PropTypes from 'prop-types'
 import { useDispatch, useSelector } from 'react-redux'
 import { useState } from 'react'
 import { Button } from '../Button/Button'
-import './EditUserInfo.css'
 import { Input } from '../Input/Input'
 import { updateUserName } from '../../features/authSlice'
+import './EditUserInfo.css'
 
 export function EditUserInfo({ setIsEditing }) {
   const { user } = useSelector((state) => state.auth)
