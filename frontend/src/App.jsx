@@ -1,12 +1,12 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import { Home } from './pages/Home/Home'
-import { Login } from './pages/Login/Login'
-import { Profile } from './pages/Profile/Profile'
+import { Login } from './pages/Login'
+import { Profile } from './pages/Profile'
 import { ErrorPage } from './pages/ErrorPage'
 import { Header } from './components/Header/Header'
 import { Footer } from './components/Footer/Footer'
-import { ProtectedRoute } from './components/ProtectedRoute/ProtectedRoute'
-import './App.css'
+import { ProtectedRoute } from './components/ProtectedRoute'
+import './App.scss'
 
 function App() {
   return (

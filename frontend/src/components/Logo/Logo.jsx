@@ -1,6 +1,6 @@
 import { NavLink } from 'react-router-dom'
 import logo from '../../assets/logo/argentBankLogo.png'
-import './Logo.css'
+import './Logo.scss'
 
 export function Logo() {
   return (
@@ -9,7 +9,7 @@ export function Logo() {
       className="logo"
     >
       <img
-        className="logo-image"
+        className="logo__image"
         src={logo}
         alt="Argent Bank Logo"
       />

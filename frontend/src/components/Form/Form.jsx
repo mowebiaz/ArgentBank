@@ -6,7 +6,7 @@ import { faCircleUser } from '@fortawesome/free-solid-svg-icons'
 import { fetchUserProfile, userLogin } from '../../features/authSlice'
 import { Input } from '../Input/Input'
 import { Button } from '../Button/Button'
-import './Form.css'
+import './Form.scss'
 
 export function Form() {
   const [email, setEmail] = useState('')
@@ -45,7 +45,7 @@ export function Form() {
   // ne fonctionne pas à cause du useEffect
   if (isAuthenticated) {
     return (
-      <section className="sign-in-content">
+      <section className="sign-in__content">
         <p>You are logged in</p>
         <NavLink to={'/profile'}>My Profile</NavLink>
       </section>
@@ -53,19 +53,19 @@ export function Form() {
   }
 
   return (
-    <section className="sign-in-content">
+    <section className="sign-in__content">
       <FontAwesomeIcon
-        className="sign-in-icon"
+        className="sign-in__icon"
         icon={faCircleUser}
       />
       <h1>Sign In</h1>
       <form onSubmit={handleSubmit}>
         {/*       {error && <Error>{error}</Error>}
          */}
-        {error && <p>Incorrect login and/or password</p>}
+        {error && <div>Incorrect login and/or password</div>}
 
         <Input
-          className="input-wrapper"
+          className="input__wrapper"
           label="Email"
           inputType="text"
           content="Email"
@@ -73,7 +73,7 @@ export function Form() {
           onChange={(e) => setEmail(e.target.value)}
         />
         <Input
-          className="input-wrapper"
+          className="input__wrapper"
           label="Password"
           inputType="password"
           content="Password"
@@ -81,7 +81,7 @@ export function Form() {
           onChange={(e) => setPassword(e.target.value)}
         />
         <Input
-          className="input-remember"
+          className="input__remember"
           label="remember-me"
           inputType="checkbox"
           content="Remember me"

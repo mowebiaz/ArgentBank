@@ -1,9 +1,9 @@
-import './Footer.css' 
+import './Footer.scss' 
 
 export function Footer() {
   return (
     <footer>
-      <p className="footer-text">Copyright 2020 Argent Bank</p>
+      <p className="footer__text">Copyright 2020 Argent Bank</p>
     </footer>
   )
 }

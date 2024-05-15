@@ -1,5 +1,4 @@
-import { Form } from '../../components/Form/Form'
-import './Login.css'
+import { Form } from '../components/Form/Form'
 
 export function Login() {
   return (

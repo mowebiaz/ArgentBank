@@ -3,8 +3,12 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useState } from 'react'
 import { Button } from '../Button/Button'
 import { Input } from '../Input/Input'
+<<<<<<< HEAD
 import { updateUserName } from '../../features/authSlice'
 import './EditUserInfo.css'
+=======
+import './EditUserInfo.scss'
+>>>>>>> 2a80708 (replace css with scss)
 
 export function EditUserInfo({ setIsEditing }) {
   const { user } = useSelector((state) => state.auth)

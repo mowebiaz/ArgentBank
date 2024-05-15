@@ -3,32 +3,24 @@ header {
     justify-content: space-between;
     align-items: center;
     padding: 5px 20px;
-}
-
-/* voir si le nesting fonctionne */
-header a {
-    font-weight: bold;
-    color: #2c3e50;
-}
-
-/* à vérifier avec les navlink */
-header a.active {
-    color: #42b983;
+    a {
+        font-weight: bold;
+        color: #2c3e50;
+        &.active {
+            color: #42b983;
+        }
+    }
 }
 
 .nav-item {
     text-decoration: none;
     margin-right: 0.5rem;
-}
-
-.nav-item:hover,
-.sign-out-button:hover {
-    text-decoration: underline;
-}
-
-.nav-item svg,
-.sign-out-button svg {
-    margin-right: 0.5rem;
+    &:hover {
+        text-decoration: underline;
+    }
+    svg {
+        margin-right: 0.5rem;
+    }
 }
 
 .sign-out-button {
@@ -41,8 +33,10 @@ header a.active {
     cursor: pointer;
     padding: 0;
     margin-right: 0.5rem;
+    &:hover {
+        text-decoration: underline;
+    }
+    svg {
+        margin-right: 0.5rem;
+    }
 }
-
-/* .sign-out-button:hover {
-    text-decoration: underline;
-} */

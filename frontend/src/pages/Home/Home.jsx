@@ -3,7 +3,7 @@ import { Hero } from '../../components/Hero/Hero'
 import IconChat from '../../assets/icons/icon-chat.webp'
 import IconMoney from '../../assets/icons/icon-money.webp'
 import IconSecurity from '../../assets/icons/icon-security.webp'
-import './Home.css'
+import './Home.scss'
 
 export function Home() {
   return (

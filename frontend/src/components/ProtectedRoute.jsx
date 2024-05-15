@@ -1,6 +1,5 @@
 import { useSelector } from 'react-redux'
 import { NavLink, Outlet } from 'react-router-dom'
-import './ProtectedRoute.css'
 
 export function ProtectedRoute() {
   const { isAuthenticated } = useSelector((state) => state.auth)

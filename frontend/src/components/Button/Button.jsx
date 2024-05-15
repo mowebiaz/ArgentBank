@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import './Button.css'
+import './Button.scss'
 
 export function Button({ type, className, disabled = false, children, ...restProps }) {
   return (

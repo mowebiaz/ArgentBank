@@ -7,9 +7,13 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 
 import { Logo } from '../Logo/Logo'
+<<<<<<< HEAD
 import './Header.css'
 import { logout } from '../../features/authSlice'
 
+=======
+import './Header.scss'
+>>>>>>> 2a80708 (replace css with scss)
 
 export function Header() {
   const { user } = useSelector((state) => state.auth)

@@ -1,16 +1,16 @@
 import PropTypes from 'prop-types';
-import './Card.css'
+import './Card.scss'
 
 
 export function Card({ src, alt, title, text }) {
   return (
-    <div className="card-item">
+    <div className="card__item">
       <img
         src={src}
         alt={alt}
-        className="card-icon"
+        className="card__icon"
       />
-      <h3 className="card-item-title">{title}</h3>
+      <h3 className="card__item-title">{title}</h3>
       <p>{text}</p>
     </div>
   )

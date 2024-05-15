@@ -1,6 +1,5 @@
-import { Account } from '../../components/Account/Account'
-import { HeaderProfile } from '../../components/HeaderProfile/HeaderProfile'
-import './Profile.css'
+import { Account } from '../components/Account/Account'
+import { HeaderProfile } from '../components/HeaderProfile/HeaderProfile'
 
 export function Profile() {
   return (

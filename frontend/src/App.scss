@@ -19,6 +19,13 @@
   min-height: 100vh;
 }
 
+.main, .bg-dark {
+  flex: 1;
+}
+
+.bg-dark {
+  background-color: #12002b;
+}
 
 /* #root {
   max-width: 1280px;

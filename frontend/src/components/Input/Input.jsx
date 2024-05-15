@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import './Input.css'
+import './Input.scss'
 
 export function Input({
   className,
