@@ -128,10 +128,7 @@ const authSlice = createSlice({
       state.loading = false
       state.error = action.payload
     })
-<<<<<<< HEAD
-=======
 
->>>>>>> 43ca55f (add functionality for editing UserName)
     // Update user name
     builder.addCase(updateUserName.pending, (state) => {
       state.loading = true
