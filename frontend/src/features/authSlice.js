@@ -8,7 +8,6 @@ import axios from 'axios'
   : null */
 
 const initialState = {
-  // user: null, // Initially, no user is logged in
   user: null, // for user object
   token: null, // for storing the JWT
   isAuthenticated: false,
@@ -22,14 +21,14 @@ export const userLogin = createAsyncThunk(
   'auth/login',
   async ({ email, password, rememberMe }, { rejectWithValue }) => {
     try {
-      const { data } = await axios.post(`${backendURL}/user/login`, {
+      const response = await axios.post(`${backendURL}/user/login`, {
         email,
         password,
       })
       // console.log(data)
       // const storage = rememberMe ? localStorage : sessionStorage;
       // storage.setItem('token', data.body.token)
-      return data
+      return response.data.body
     } catch (error) {
       return rejectWithValue(error.message)
     }
@@ -50,6 +49,27 @@ export const fetchUserProfile = createAsyncThunk(
       )
       //console.log('response', response)
       //console.log('response.data', response.data)
+      return response.data.body
+    } catch (error) {
+      return rejectWithValue(error.message)
+    }
+  }
+)
+
+export const updateUserName = createAsyncThunk(
+  'auth/updateUserName',
+  async (userName, { getState, rejectWithValue }) => {
+    const { token } = getState().auth
+    try {
+      const response = await axios.put(`${backendURL}/user/profile`, {
+        userName: userName,
+      }, 
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      console.log('response.data', response.data)
+      console.log(response.data.body)
+      console.log(response.data.body.userName)
       return response.data.body
     } catch (error) {
       return rejectWithValue(error.message)
@@ -78,8 +98,7 @@ const authSlice = createSlice({
       state.error = null
     })
     builder.addCase(userLogin.fulfilled, (state, action) => {
-      // state.user = action.payload.user
-      state.token = action.payload.body.token
+      state.token = action.payload.token
       state.isAuthenticated = true
       state.loading = false
       state.error = null
@@ -88,6 +107,7 @@ const authSlice = createSlice({
       state.loading = false
       state.error = action.payload
     })
+
     // Profile
     builder.addCase(fetchUserProfile.pending, (state) => {
       state.loading = true
@@ -99,6 +119,20 @@ const authSlice = createSlice({
       state.error = null
     })
     builder.addCase(fetchUserProfile.rejected, (state, action) => {
+      state.loading = false
+      state.error = action.payload
+    })
+    // Update user name
+    builder.addCase(updateUserName.pending, (state) => {
+      state.loading = true
+      state.error = null
+    })
+    builder.addCase(updateUserName.fulfilled, (state, action) => {
+      state.user.userName = action.payload.userName
+      state.loading = false
+      state.error = null
+    })
+    builder.addCase(updateUserName.rejected, (state, action) => {
       state.loading = false
       state.error = action.payload
     })

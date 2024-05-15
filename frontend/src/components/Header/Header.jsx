@@ -4,29 +4,22 @@ import {
   faCircleUser,
   faRightFromBracket,
 } from '@fortawesome/free-solid-svg-icons'
+import { useDispatch, useSelector } from 'react-redux'
 import { Logo } from '../Logo/Logo'
 import './Header.css'
-import { useDispatch, useSelector } from 'react-redux'
-import { fetchUserProfile, logout } from '../../features/authSlice'
-import { useEffect } from 'react'
+import { logout } from '../../features/authSlice'
 
 export function Header() {
-  const { user, token, isAuthenticated } = useSelector((state) => state.auth)
+  const { user } = useSelector((state) => state.auth)
 
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
-  const handleLogout = () => {
-    // e.preventDefault() // empêche la navigation
+  const handleLogout = (e) => {
+    e.preventDefault()
     dispatch(logout())
     navigate('/')
   }
-
-/*   useEffect(() => {
-    if (isAuthenticated) {
-      dispatch(fetchUserProfile())
-    }
-  }) */
 
   return (
     <header>

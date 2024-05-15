@@ -14,6 +14,10 @@
     font-size: 1.2rem;
 }
 
+input:disabled:hover {
+    cursor: not-allowed;
+}
+
 .input-remember {
     display: flex;
 }

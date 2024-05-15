@@ -1,11 +1,11 @@
 import { Account } from '../../components/Account/Account'
-import { HeaderConnection } from '../../components/HeaderConnection/HeaderConnection'
+import { HeaderProfile } from '../../components/HeaderProfile/HeaderProfile'
 import './Profile.css'
 
 export function Profile() {
   return (
     <main className="bg-dark ">
-      <HeaderConnection />
+      <HeaderProfile />
       <h2 className="sr-only">Accounts</h2>
       <Account
         title="Argent Bank Checking (x8349)"

@@ -1,12 +1,13 @@
 import PropTypes from 'prop-types'
 import './Button.css'
 
-export function Button({ type, className, disabled = false, children }) {
+export function Button({ type, className, disabled = false, children, ...restProps }) {
   return (
     <button
       type={type}
       className={className}
       disabled={disabled}
+      {...restProps}
     >
       {children}
     </button>

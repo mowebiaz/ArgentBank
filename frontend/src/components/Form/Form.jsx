@@ -18,26 +18,17 @@ export function Form() {
   )
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  /* 
-  useEffect(() => {
-    if (isAuthenticated) {
-      dispatch(fetchUserProfile())
-      navigate('/profile')
-    }
-    /*     if (token) {
-      navigate('/profile')
-    } 
-  }, [isAuthenticated, dispatch, navigate]) */
 
   useEffect(() => {
     const fetchAndNavigate = async () => {
       if (isAuthenticated) {
         try {
           await dispatch(fetchUserProfile()).unwrap()
+          // dispatch(fetchUserProfile())
           navigate('/profile')
         } catch (error) {
           console.error('Failed to fetch user profile:', error)
-          // Gérer l'erreur, peut-être en affichant un message à l'utilisateur
+          // Gérer l'erreur en affichant un message à l'utilisateur
         }
       }
     }
@@ -54,7 +45,7 @@ export function Form() {
       console.log(error)
     }
   }
-  // voir la ft form reset
+  // ne fonctionne pas à cause du useEffect
   if (isAuthenticated) {
     return (
       <section className="sign-in-content">
