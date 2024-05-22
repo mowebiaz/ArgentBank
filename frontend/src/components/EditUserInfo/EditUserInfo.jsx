@@ -1,11 +1,10 @@
 import PropTypes from 'prop-types'
-import { useDispatch, useSelector } from 'react-redux'
 import { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { Button } from '../Button/Button'
 import { Input } from '../Input/Input'
 import { updateUserName } from '../../features/authSlice'
 import './EditUserInfo.scss'
-
 
 export function EditUserInfo({ setIsEditing }) {
   const { user } = useSelector((state) => state.auth)
@@ -25,17 +24,15 @@ export function EditUserInfo({ setIsEditing }) {
       //message de confirmation
       setIsEditing(false)
     } catch (error) {
-      console.log(error.message || 'Failed to update username');
+      console.log(error.message || 'Failed to update username')
       // Gérer l'erreur
     }
-
   }
   return (
-    <>
+    <section className="edit-userName">
       <h1>Edit user info</h1>
       <form onSubmit={handleSave}>
         <Input
-          // className="input-wrapper"
           label="userName"
           inputType="text"
           content="User name:"
@@ -57,15 +54,23 @@ export function EditUserInfo({ setIsEditing }) {
         />
         {/*         {error && <div className="error">{error}</div>}
          */}
-        <Button type="submit">Save</Button>
-        <Button
-          type="button"
-          onClick={handleCancel}
-        >
-          Cancel
-        </Button>
+        <div className="div-buttons">
+          <Button
+            className="edit-button"
+            type="submit"
+          >
+            Save
+          </Button>
+          <Button
+            className="edit-button"
+            type="button"
+            onClick={handleCancel}
+          >
+            Cancel
+          </Button>
+        </div>
       </form>
-    </>
+    </section>
   )
 }
 

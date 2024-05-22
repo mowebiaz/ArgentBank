@@ -31,7 +31,7 @@ export function Header() {
             className={'nav-item'}
           >
             <FontAwesomeIcon icon={faCircleUser} />
-            {user.firstName}
+            {user.userName}
           </NavLink>
           <button
             className={'sign-out-button'}

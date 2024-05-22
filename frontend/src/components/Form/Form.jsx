@@ -6,13 +6,16 @@ import { faCircleUser } from '@fortawesome/free-solid-svg-icons'
 import { fetchUserProfile, userLogin } from '../../features/authSlice'
 import { Input } from '../Input/Input'
 import { Button } from '../Button/Button'
+import { ErrorMessage } from '../Notifications/Notifications'
 import './Form.scss'
 
 export function Form() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [rememberMe, setRememberMe] = useState(false)
-  const { isAuthenticated, loading, error } = useSelector((state) => state.auth)
+  const { user, isAuthenticated, loading, error } = useSelector(
+    (state) => state.auth
+  )
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
@@ -22,6 +25,7 @@ export function Form() {
         try {
           await dispatch(fetchUserProfile()).unwrap()
           // dispatch(fetchUserProfile())
+          // l'erreur survient avant le navigate
           navigate('/profile')
         } catch (error) {
           console.error('Failed to fetch user profile:', error)
@@ -44,11 +48,13 @@ export function Form() {
   }
   // ne fonctionne pas à cause du useEffect
   if (isAuthenticated) {
-    return (
+    return user ? (
       <section className="sign-in__content">
         <p>You are logged in</p>
         <NavLink to={'/profile'}>My Profile</NavLink>
       </section>
+    ) : (
+      <ErrorMessage>Failed to fetch user profile</ErrorMessage>
     )
   }
 
@@ -60,10 +66,7 @@ export function Form() {
       />
       <h1>Sign In</h1>
       <form onSubmit={handleSubmit}>
-        {/*       {error && <Error>{error}</Error>}
-         */}
-        {error && <div>Incorrect login and/or password</div>}
-
+        {error && <ErrorMessage>Incorrect login and/or password</ErrorMessage>}
         <Input
           className="input__wrapper"
           label="Email"

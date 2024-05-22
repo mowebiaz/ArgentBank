@@ -8,7 +8,7 @@ export function ProtectedRoute() {
     return <Outlet />
   }
   return (
-    <main>
+    <main className='main'>
       <div>
         <h1>Unauthorized :(</h1>
         <span>

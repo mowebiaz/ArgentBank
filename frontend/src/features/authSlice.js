@@ -70,9 +70,9 @@ export const updateUserName = createAsyncThunk(
           headers: { Authorization: `Bearer ${token}` },
         }
       )
-      console.log('response.data', response.data)
-      console.log(response.data.body)
-      console.log(response.data.body.userName)
+      //console.log('response.data', response.data)
+      //console.log(response.data.body)
+      //console.log(response.data.body.userName)
       return response.data.body
     } catch (error) {
       return rejectWithValue(error.message)
