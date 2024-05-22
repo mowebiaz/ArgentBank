@@ -10,12 +10,16 @@ import { ErrorMessage } from '../Notifications/Notifications'
 import './Form.scss'
 
 export function Form() {
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [rememberMe, setRememberMe] = useState(false)
+  const [userInfo, setUserInfo] = useState({
+    email: '',
+    password: '',
+    rememberMe: false,
+  })
+
   const { user, isAuthenticated, loading, error } = useSelector(
     (state) => state.auth
   )
+
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
@@ -25,11 +29,9 @@ export function Form() {
         try {
           await dispatch(fetchUserProfile()).unwrap()
           // dispatch(fetchUserProfile())
-          // l'erreur survient avant le navigate
           navigate('/profile')
         } catch (error) {
           console.error('Failed to fetch user profile:', error)
-          // Gérer l'erreur en affichant un message à l'utilisateur
         }
       }
     }
@@ -40,7 +42,7 @@ export function Form() {
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
-      dispatch(userLogin({ email, password, rememberMe }))
+      dispatch(userLogin(userInfo))
     } catch (error) {
       // à revoir
       console.log(error)
@@ -73,7 +75,7 @@ export function Form() {
           inputType="text"
           content="Email"
           autoComplete="email"
-          onChange={(e) => setEmail(e.target.value)}
+          onChange={(e) => setUserInfo({ ...userInfo, email: e.target.value })}
         />
         <Input
           className="input__wrapper"
@@ -81,15 +83,20 @@ export function Form() {
           inputType="password"
           content="Password"
           autoComplete="current-password"
-          onChange={(e) => setPassword(e.target.value)}
+          onChange={(e) =>
+            setUserInfo({ ...userInfo, password: e.target.value })
+          }
         />
         <Input
           className="input__remember"
           label="remember-me"
           inputType="checkbox"
           content="Remember me"
+          value={userInfo.rememberMe}
           labelFirst={false}
-          onChange={(e) => setRememberMe(e.target.checked)}
+          onChange={(e) =>
+            setUserInfo({ ...userInfo, rememberMe: e.target.checked })
+          }
         />
         <Button
           type="submit"

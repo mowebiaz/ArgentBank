@@ -9,7 +9,7 @@ import axios from 'axios'
 
 const initialState = {
   user: null, // for user object
-  token: null, // for storing the JWT
+  //token: null, // for storing the JWT
   isAuthenticated: false,
   loading: false,
   error: null,
@@ -25,9 +25,10 @@ export const userLogin = createAsyncThunk(
         email,
         password,
       })
-      // console.log(data)
-      // const storage = rememberMe ? localStorage : sessionStorage;
-      // storage.setItem('token', data.body.token)
+      // console.log(response.data.body)
+      const { token } = response.data.body
+      const storage = rememberMe ? localStorage : sessionStorage
+      storage.setItem('token', token)
       return response.data.body
     } catch (error) {
       return rejectWithValue(error.message)
@@ -37,8 +38,10 @@ export const userLogin = createAsyncThunk(
 
 export const fetchUserProfile = createAsyncThunk(
   'auth/profile',
-  async (_, { getState, rejectWithValue }) => {
-    const { token } = getState().auth
+  async (_, { rejectWithValue }) => {
+    //const { token } = getState().auth
+    const token =
+      localStorage.getItem('token') || sessionStorage.getItem('token')
     try {
       const response = await axios.post(
         `${backendURL}/user/profile`,
@@ -58,8 +61,10 @@ export const fetchUserProfile = createAsyncThunk(
 
 export const updateUserName = createAsyncThunk(
   'auth/updateUserName',
-  async (userName, { getState, rejectWithValue }) => {
-    const { token } = getState().auth
+  async (userName, { rejectWithValue }) => {
+    //const { token } = getState().auth
+    const token =
+      localStorage.getItem('token') || sessionStorage.getItem('token')
     try {
       const response = await axios.put(
         `${backendURL}/user/profile`,
@@ -86,12 +91,12 @@ const authSlice = createSlice({
   reducers: {
     logout: (state) => {
       state.user = null
-      state.token = null
+      //state.token = null
       state.isAuthenticated = false
       state.loading = false
       state.error = null
-      //localStorage.removeItem('token')
-      //sessionStorage.removeItem('token')
+      localStorage.removeItem('token')
+      sessionStorage.removeItem('token')
     },
     resetError: (state) => {
       state.error = null
@@ -103,8 +108,8 @@ const authSlice = createSlice({
       state.loading = true
       state.error = null
     })
-    builder.addCase(userLogin.fulfilled, (state, action) => {
-      state.token = action.payload.token
+    builder.addCase(userLogin.fulfilled, (state) => {
+      //state.token = action.payload.token
       state.isAuthenticated = true
       state.loading = false
       state.error = null
