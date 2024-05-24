@@ -98,9 +98,9 @@ const authSlice = createSlice({
       localStorage.removeItem('token')
       sessionStorage.removeItem('token')
     },
-    resetError: (state) => {
+    /*     resetError: (state) => {
       state.error = null
-    },
+    }, */
   },
   extraReducers: (builder) => {
     // Login

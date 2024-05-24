@@ -10,7 +10,7 @@ import { logout } from '../../features/authSlice'
 import './Header.scss'
 
 export function Header() {
-  const { user } = useSelector((state) => state.auth)
+  const { user, isAuthenticated } = useSelector((state) => state.auth)
 
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -24,8 +24,8 @@ export function Header() {
   return (
     <header>
       <Logo />
-      {user ? (
-        <nav>
+      <nav>
+        {user && ( // Profile button
           <NavLink
             to={'/profile'}
             className={'nav-item'}
@@ -33,6 +33,9 @@ export function Header() {
             <FontAwesomeIcon icon={faCircleUser} />
             {user.userName}
           </NavLink>
+        )}
+
+        {isAuthenticated ? ( // Sign-out button or login button
           <button
             className={'sign-out-button'}
             onClick={handleLogout}
@@ -40,9 +43,7 @@ export function Header() {
             <FontAwesomeIcon icon={faRightFromBracket} />
             Sign Out
           </button>
-        </nav>
-      ) : (
-        <nav>
+        ) : (
           <NavLink
             to={'/login'}
             className="nav-item"
@@ -50,8 +51,8 @@ export function Header() {
             <FontAwesomeIcon icon={faCircleUser} />
             Sign In
           </NavLink>
-        </nav>
-      )}
+        )}
+      </nav>
     </header>
   )
 }

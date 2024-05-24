@@ -1,12 +1,10 @@
 import PropTypes from 'prop-types'
-import "./Notifications.scss"
+import './Notifications.scss'
 
-export const ErrorMessage = ({children}) => {
-  return <div className="error">
-    {children}
-  </div>
+export const ErrorMessage = ({ children }) => {
+  return <div className="error">{children}</div>
 }
 
 ErrorMessage.propTypes = {
-  children: PropTypes.node
+  children: PropTypes.node,
 }

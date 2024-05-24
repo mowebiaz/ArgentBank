@@ -5,9 +5,10 @@ import { Button } from '../Button/Button'
 import { Input } from '../Input/Input'
 import { updateUserName } from '../../features/authSlice'
 import './EditUserInfo.scss'
+import { ErrorMessage } from '../Notifications/Notifications'
 
 export function EditUserInfo({ setIsEditing }) {
-  const { user } = useSelector((state) => state.auth)
+  const { user, loading, error } = useSelector((state) => state.auth)
   const [userName, setUserName] = useState(user.userName)
   const dispatch = useDispatch()
 
@@ -19,13 +20,11 @@ export function EditUserInfo({ setIsEditing }) {
   const handleSave = async (e) => {
     e.preventDefault()
     try {
-      //await dispatch(updateUserName(userName)).unwrap()
       dispatch(updateUserName(userName))
       //message de confirmation
       setIsEditing(false)
     } catch (error) {
-      console.log(error.message || 'Failed to update username')
-      // Gérer l'erreur
+      console.error('Failed to update username', error)
     }
   }
   return (
@@ -52,8 +51,7 @@ export function EditUserInfo({ setIsEditing }) {
           content="Last name:"
           placeholder={user.lastName}
         />
-        {/*         {error && <div className="error">{error}</div>}
-         */}
+        {error && <ErrorMessage>Failed to update username</ErrorMessage>}
         <div className="div-buttons">
           <Button
             className="edit-button"

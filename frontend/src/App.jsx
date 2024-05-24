@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import { Home } from './pages/Home/Home'
 import { Login } from './pages/Login'
@@ -8,13 +8,13 @@ import { ErrorPage } from './pages/ErrorPage'
 import { Header } from './components/Header/Header'
 import { Footer } from './components/Footer/Footer'
 import { ProtectedRoute } from './components/ProtectedRoute'
-import { fetchUserProfile, logout } from './features/authSlice'
+import { logout } from './features/authSlice'
 import './App.scss'
 
 function App() {
   const dispatch = useDispatch()
-  //const {user, isAuthenticated} = useSelector((state) => state.auth)
 
+  // ou faire un reset store ou persistor purge ?
   useEffect(() => {
     const sessionToken = sessionStorage.getItem('token')
     const localToken = localStorage.getItem('token')

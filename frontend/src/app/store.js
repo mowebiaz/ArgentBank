@@ -8,21 +8,20 @@ const rootReducer = combineReducers({
   auth: authReducer,
 })
 
- const persistConfig = {
+const persistConfig = {
   key: 'root',
   // version: 1,
   storage,
-}  
+}
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)
 
- export const store = configureStore({
+export const store = configureStore({
   reducer: persistedReducer,
-  //devTools: process.env.NODE_ENV !== 'production',
-    middleware: (getDefaultMiddleware) =>
-      getDefaultMiddleware({
-        serializableCheck: false
-      }),
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: false,
+    }),
 })
 
 export const persistor = persistStore(store)

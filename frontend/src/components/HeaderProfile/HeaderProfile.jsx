@@ -25,7 +25,7 @@ export function HeaderProfile() {
           <h1>
             Welcome back
             <br />
-            {user.firstName} {user.lastName}!
+            {user && user.firstName} {user && user.lastName}!
           </h1>
           <Button
             className="edit-button"

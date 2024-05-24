@@ -23,19 +23,21 @@ export function Form() {
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
+  /**
+   * if authenticated user , fetches the user profile
+   * and navigates to the profile page
+   */
   useEffect(() => {
-    const fetchAndNavigate = async () => {
+    const fetchAndNavigate = () => {
       if (isAuthenticated) {
         try {
-          await dispatch(fetchUserProfile()).unwrap()
-          // dispatch(fetchUserProfile())
+          dispatch(fetchUserProfile())
           navigate('/profile')
         } catch (error) {
-          console.error('Failed to fetch user profile:', error)
+          console.log('Failed to fetch user profile:', error)
         }
       }
     }
-
     fetchAndNavigate()
   }, [isAuthenticated, dispatch, navigate])
 
@@ -44,21 +46,18 @@ export function Form() {
     try {
       dispatch(userLogin(userInfo))
     } catch (error) {
-      // à revoir
-      console.log(error)
+      console.error('Failed to login user:', error)
     }
   }
-  // ne fonctionne pas à cause du useEffect
-  if (isAuthenticated) {
-    return user ? (
-      <section className="sign-in__content">
-        <p>You are logged in</p>
-        <NavLink to={'/profile'}>My Profile</NavLink>
-      </section>
-    ) : (
-      <ErrorMessage>Failed to fetch user profile</ErrorMessage>
+   
+/*   if (isAuthenticated) {
+    return (
+      <>
+        {loading && <p style={{ color: 'white' }}>Try to fetch profile</p>}
+        {error && <ErrorMessage>Failed to fetch user profile</ErrorMessage>}
+      </>
     )
-  }
+  }  */
 
   return (
     <section className="sign-in__content">
