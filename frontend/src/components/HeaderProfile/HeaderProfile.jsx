@@ -9,7 +9,7 @@ import './HeaderProfile.scss'
 // ajouter le name en fonction du state
 export function HeaderProfile() {
   const [isEditing, setIsEditing] = useState(false)
-  const { user } = useSelector((state) => state.auth)
+  const { user } = useSelector((state) => state.user)
 
   const handleEdit = (e) => {
     e.preventDefault()

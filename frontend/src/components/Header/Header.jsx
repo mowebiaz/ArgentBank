@@ -10,7 +10,8 @@ import { logout } from '../../features/authSlice'
 import './Header.scss'
 
 export function Header() {
-  const { user, isAuthenticated } = useSelector((state) => state.auth)
+  const { isAuthenticated } = useSelector((state) => state.auth)
+  const { user } = useSelector((state) => state.user)
 
   const dispatch = useDispatch()
   const navigate = useNavigate()

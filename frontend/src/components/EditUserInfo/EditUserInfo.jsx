@@ -3,12 +3,12 @@ import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Button } from '../Button/Button'
 import { Input } from '../Input/Input'
-import { updateUserName } from '../../features/authSlice'
-import './EditUserInfo.scss'
+import { updateUserName } from '../../features/userSlice'
 import { ErrorMessage } from '../Notifications/Notifications'
+import './EditUserInfo.scss'
 
 export function EditUserInfo({ setIsEditing }) {
-  const { user, loading, error } = useSelector((state) => state.auth)
+  const { user, loading, error } = useSelector((state) => state.user)
   const [userName, setUserName] = useState(user.userName)
   const dispatch = useDispatch()
 

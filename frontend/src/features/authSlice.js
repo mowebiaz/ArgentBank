@@ -1,14 +1,15 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import axios from 'axios'
+//import localStorage from 'redux-persist/es/storage'
 
 // initialize userToken from local storage
 // à revoir avec le session storage
-/* const token = sessionStorage.getItem('token')
+/* const sessionToken = sessionStorage.getItem('token')
   ? sessionStorage.getItem('token')
-  : null */
+  : null  */
 
 const initialState = {
-  user: null, // for user object
+  //user: null, // for user object
   //token: null, // for storing the JWT
   isAuthenticated: false,
   loading: false,
@@ -36,61 +37,12 @@ export const userLogin = createAsyncThunk(
   }
 )
 
-export const fetchUserProfile = createAsyncThunk(
-  'auth/profile',
-  async (_, { rejectWithValue }) => {
-    //const { token } = getState().auth
-    const token =
-      localStorage.getItem('token') || sessionStorage.getItem('token')
-    try {
-      const response = await axios.post(
-        `${backendURL}/user/profile`,
-        {},
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      )
-      //console.log('response', response)
-      //console.log('response.data', response.data)
-      return response.data.body
-    } catch (error) {
-      return rejectWithValue(error.message)
-    }
-  }
-)
-
-export const updateUserName = createAsyncThunk(
-  'auth/updateUserName',
-  async (userName, { rejectWithValue }) => {
-    //const { token } = getState().auth
-    const token =
-      localStorage.getItem('token') || sessionStorage.getItem('token')
-    try {
-      const response = await axios.put(
-        `${backendURL}/user/profile`,
-        {
-          userName: userName,
-        },
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      )
-      //console.log('response.data', response.data)
-      //console.log(response.data.body)
-      //console.log(response.data.body.userName)
-      return response.data.body
-    } catch (error) {
-      return rejectWithValue(error.message)
-    }
-  }
-)
-
 const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
     logout: (state) => {
-      state.user = null
+      //state.user = null
       //state.token = null
       state.isAuthenticated = false
       state.loading = false
@@ -118,38 +70,8 @@ const authSlice = createSlice({
       state.loading = false
       state.error = action.payload
     })
-
-    // Profile
-    builder.addCase(fetchUserProfile.pending, (state) => {
-      state.loading = true
-      state.error = null
-    })
-    builder.addCase(fetchUserProfile.fulfilled, (state, action) => {
-      state.user = action.payload
-      state.loading = false
-      state.error = null
-    })
-    builder.addCase(fetchUserProfile.rejected, (state, action) => {
-      state.loading = false
-      state.error = action.payload
-    })
-
-    // Update user name
-    builder.addCase(updateUserName.pending, (state) => {
-      state.loading = true
-      state.error = null
-    })
-    builder.addCase(updateUserName.fulfilled, (state, action) => {
-      state.user.userName = action.payload.userName
-      state.loading = false
-      state.error = null
-    })
-    builder.addCase(updateUserName.rejected, (state, action) => {
-      state.loading = false
-      state.error = action.payload
-    })
   },
 })
 
 export default authSlice.reducer
-export const { logout, resetError } = authSlice.actions
+export const { logout } = authSlice.actions

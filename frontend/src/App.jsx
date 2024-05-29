@@ -15,13 +15,13 @@ function App() {
   const dispatch = useDispatch()
 
   // ou faire un reset store ou persistor purge ?
-  useEffect(() => {
+   useEffect(() => {
     const sessionToken = sessionStorage.getItem('token')
     const localToken = localStorage.getItem('token')
     if (!sessionToken && !localToken) {
       dispatch(logout())
     }
-  }, [dispatch])
+  }, [dispatch]) 
 
   return (
     <>
