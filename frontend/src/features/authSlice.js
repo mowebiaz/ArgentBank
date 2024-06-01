@@ -1,20 +1,17 @@
+import { useContext } from 'react'
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import axios from 'axios'
-//import localStorage from 'redux-persist/es/storage'
-
-// initialize userToken from local storage
-// à revoir avec le session storage
-/* const sessionToken = sessionStorage.getItem('token')
-  ? sessionStorage.getItem('token')
-  : null  */
+import { PersistContext } from '../context/PersistContext'
 
 const initialState = {
   //user: null, // for user object
-  //token: null, // for storing the JWT
+  token: null, // for storing the JWT
   isAuthenticated: false,
   loading: false,
   error: null,
 }
+
+
 
 const backendURL = 'http://localhost:3001/api/v1'
 
@@ -27,9 +24,9 @@ export const userLogin = createAsyncThunk(
         password,
       })
       // console.log(response.data.body)
-      const { token } = response.data.body
-      const storage = rememberMe ? localStorage : sessionStorage
-      storage.setItem('token', token)
+      //const { token } = response.data.body
+      //const storage = rememberMe ? localStorage : sessionStorage
+      //storage.setItem('token', token)
       return response.data.body
     } catch (error) {
       return rejectWithValue(error.message)
@@ -43,12 +40,12 @@ const authSlice = createSlice({
   reducers: {
     logout: (state) => {
       //state.user = null
-      //state.token = null
+      state.token = null
       state.isAuthenticated = false
       state.loading = false
       state.error = null
-      localStorage.removeItem('token')
-      sessionStorage.removeItem('token')
+      //localStorage.removeItem('token')
+      //sessionStorage.removeItem('token')
     },
     /*     resetError: (state) => {
       state.error = null
@@ -60,8 +57,8 @@ const authSlice = createSlice({
       state.loading = true
       state.error = null
     })
-    builder.addCase(userLogin.fulfilled, (state) => {
-      //state.token = action.payload.token
+    builder.addCase(userLogin.fulfilled, (state, action) => {
+      state.token = action.payload.token
       state.isAuthenticated = true
       state.loading = false
       state.error = null

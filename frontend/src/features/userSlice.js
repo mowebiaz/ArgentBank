@@ -2,25 +2,23 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import axios from 'axios'
 import { logout } from './authSlice'
 
- const initialState = {
+const initialState = {
   user: null, // for user object
   loading: false,
   error: null,
-} 
+}
 
 const backendURL = 'http://localhost:3001/api/v1'
 
 export const fetchUserProfile = createAsyncThunk(
   'user/profile',
-  async (_, { rejectWithValue }) => {
-    //const { token } = getState().auth
-    const token =
-      localStorage.getItem('token') || sessionStorage.getItem('token')
+  async (_, { getState, rejectWithValue }) => {
+    const { token } = getState().auth
+    //const token = localStorage.getItem('token') || sessionStorage.getItem('token')
     //const token = sessionToken || localToken
-    if (!token) {
-      // useDispatch(logout())
+    /*     if (!token) {
       return rejectWithValue('No token found')
-    }
+    } */
     try {
       const response = await axios.post(
         `${backendURL}/user/profile`,
@@ -40,10 +38,9 @@ export const fetchUserProfile = createAsyncThunk(
 
 export const updateUserName = createAsyncThunk(
   'user/updateUserName',
-  async (userName, { rejectWithValue }) => {
-    //const { token } = getState().auth
-    const token =
-      localStorage.getItem('token') || sessionStorage.getItem('token')
+  async (userName, { getState, rejectWithValue }) => {
+    const { token } = getState().auth
+    //const token = localStorage.getItem('token') || sessionStorage.getItem('token')
     /*     if (!token) {
       return rejectWithValue('No token found')
     } */
@@ -104,10 +101,10 @@ const userSlice = createSlice({
 
     // reset user slice state when logout action is dispatched
     builder.addCase(logout, (state) => {
-      state.user = null;
-      state.loading = false;
-      state.error = null;
-    });
+      state.user = null
+      state.loading = false
+      state.error = null
+    })
   },
 })
 
