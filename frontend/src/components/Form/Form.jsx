@@ -1,9 +1,8 @@
-import { useContext, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { NavLink, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleUser } from '@fortawesome/free-solid-svg-icons'
-import { PersistContext } from '../../context/PersistContext'
 import { userLogin } from '../../features/authSlice'
 import { fetchUserProfile } from '../../features/userSlice'
 import { Input } from '../Input/Input'
@@ -15,11 +14,8 @@ export function Form() {
   const [userInfo, setUserInfo] = useState({
     email: '',
     password: '',
-    //rememberMe: false,
+    rememberMe: false,
   })
-  const [rememberMe, setRememberMe] = useState(false)
-
-  const { setPersistence } = useContext(PersistContext)
 
   const {
     isAuthenticated,
@@ -27,15 +23,12 @@ export function Form() {
     error: authError,
   } = useSelector((state) => state.auth)
 
-  const {
-    user,
-    loading: userLoading,
-    error: userError,
-  } = useSelector((state) => state.user)
+  const { loading: userLoading, error: userError } = useSelector(
+    (state) => state.user
+  )
 
   const dispatch = useDispatch()
   const navigate = useNavigate()
-
 
   /*   useEffect(() => {
     if (isAuthenticated && !user) {
@@ -49,7 +42,7 @@ export function Form() {
     }
   }, [user, navigate]) */
 
-    /**
+  /**
    * if authenticated user , fetches the user profile
    * and navigates to the profile page
    */
@@ -69,7 +62,6 @@ export function Form() {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    setPersistence(rememberMe)
     try {
       dispatch(userLogin(userInfo))
     } catch (error) {
@@ -114,8 +106,10 @@ export function Form() {
           value={userInfo.rememberMe}
           labelFirst={false}
           //checked={rememberMe}
-          onChange={(e) => setRememberMe(e.target.checked)}
-          //onChange={(e) => setUserInfo({ ...userInfo, rememberMe: e.target.checked })       }
+          //onChange={(e) => setRememberMe(e.target.checked)}
+          onChange={(e) =>
+            setUserInfo({ ...userInfo, rememberMe: e.target.checked })
+          }
         />
         <Button
           type="submit"

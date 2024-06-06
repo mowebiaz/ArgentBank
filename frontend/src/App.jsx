@@ -1,6 +1,5 @@
-import { useContext, useEffect } from 'react'
-import { useDispatch, Provider } from 'react-redux'
-import { PersistGate } from 'redux-persist/integration/react'
+import { useEffect } from 'react'
+import { useDispatch } from 'react-redux'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import { Home } from './pages/Home/Home'
 import { Login } from './pages/Login'
@@ -9,62 +8,72 @@ import { ErrorPage } from './pages/ErrorPage'
 import { Header } from './components/Header/Header'
 import { Footer } from './components/Footer/Footer'
 import { ProtectedRoute } from './components/ProtectedRoute'
-import { PersistContext, PersistProvider } from './context/PersistContext'
-import { logout } from './features/authSlice'
+import { userLogin } from './features/authSlice'
 import './App.scss'
+import { persistor, store } from './app/store'
+import { fetchUserProfile } from './features/userSlice'
 
 function App() {
-  /*   const dispatch = useDispatch()
+  const dispatch = useDispatch()
 
   // ou faire un reset store ou persistor purge ?
-  useEffect(() => {
+  /*useEffect(() => {
     const sessionToken = sessionStorage.getItem('token')
     const localToken = localStorage.getItem('token')
 
     if (!sessionToken && !localToken) {
-      console.log('appel de logout')
       // persistor.purge()
       dispatch(logout())
     }
   }, [dispatch]) */
 
-  const { store, persistor } = useContext(PersistContext)
+  useEffect(() => {
+    const refreshProfile = async () => {
+      const email = localStorage.getItem('email')
+      const password = localStorage.getItem('password')
+
+      if (!store.getState().auth.isAuthenticated && email && password) {
+        try {
+          await dispatch(
+            userLogin({ email, password, rememberMe: true })
+          ).unwrap()
+          await dispatch(fetchUserProfile()).unwrap()
+        } catch (error) {
+          console.log('Failed to refresh user profile:', error)
+        }
+      }
+    }
+    refreshProfile()
+  }, [dispatch])
 
   return (
-    <Provider store={store}>
-      <PersistGate
-        loading={null}
-        persistor={persistor}
-      >
-        <>
-          <Router>
-            <Header />
-            <Routes>
-              <Route
-                path="/"
-                element={<Home />}
-              />
-              <Route
-                path="/login"
-                element={<Login />}
-              />
-              <Route element={<ProtectedRoute />}>
-                <Route
-                  path="/profile"
-                  element={<Profile />}
-                />
-              </Route>
+    <>
+      <Router>
+        <Header />
+        <Routes>
+          <Route
+            path="/"
+            element={<Home />}
+          />
+          <Route
+            path="/login"
+            element={<Login />}
+          />
+          <Route element={<ProtectedRoute />}>
+            <Route
+              path="/profile"
+              element={<Profile />}
+            />
+          </Route>
 
-              <Route
-                path="*"
-                element={<ErrorPage />}
-              />
-            </Routes>
-            <Footer />
-          </Router>
-        </>
-      </PersistGate>
-    </Provider>
+          <Route
+            path="*"
+            element={<ErrorPage />}
+          />
+        </Routes>
+        <Footer />
+      </Router>
+    </>
   )
 }
 

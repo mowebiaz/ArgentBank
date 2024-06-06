@@ -1,17 +1,12 @@
-import { useContext } from 'react'
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import axios from 'axios'
-import { PersistContext } from '../context/PersistContext'
 
 const initialState = {
-  //user: null, // for user object
   token: null, // for storing the JWT
   isAuthenticated: false,
   loading: false,
   error: null,
 }
-
-
 
 const backendURL = 'http://localhost:3001/api/v1'
 
@@ -23,10 +18,13 @@ export const userLogin = createAsyncThunk(
         email,
         password,
       })
-      // console.log(response.data.body)
       //const { token } = response.data.body
       //const storage = rememberMe ? localStorage : sessionStorage
       //storage.setItem('token', token)
+      if (rememberMe) {
+        localStorage.setItem('email', email)
+        localStorage.setItem('password', password)
+      }
       return response.data.body
     } catch (error) {
       return rejectWithValue(error.message)
@@ -39,17 +37,13 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     logout: (state) => {
-      //state.user = null
       state.token = null
       state.isAuthenticated = false
       state.loading = false
       state.error = null
-      //localStorage.removeItem('token')
-      //sessionStorage.removeItem('token')
+      localStorage.removeItem('email')
+      localStorage.removeItem('password')
     },
-    /*     resetError: (state) => {
-      state.error = null
-    }, */
   },
   extraReducers: (builder) => {
     // Login

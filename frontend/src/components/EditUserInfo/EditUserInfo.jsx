@@ -3,12 +3,12 @@ import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Button } from '../Button/Button'
 import { Input } from '../Input/Input'
-import { updateUserName } from '../../features/userSlice'
 import { ErrorMessage } from '../Notifications/Notifications'
+import { updateUserName } from '../../features/userSlice'
 import './EditUserInfo.scss'
 
 export function EditUserInfo({ setIsEditing }) {
-  const { user, loading, error } = useSelector((state) => state.user)
+  const { user, error } = useSelector((state) => state.user)
   const [userName, setUserName] = useState(user.userName)
   const dispatch = useDispatch()
 
