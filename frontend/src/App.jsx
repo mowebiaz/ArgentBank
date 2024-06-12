@@ -8,7 +8,7 @@ import { ErrorPage } from './pages/ErrorPage'
 import { Header } from './components/Header/Header'
 import { Footer } from './components/Footer/Footer'
 import { ProtectedRoute } from './components/ProtectedRoute'
-import { userLogin } from './features/authSlice'
+import { logout, userLogin } from './features/authSlice'
 import './App.scss'
 import { persistor, store } from './app/store'
 import { fetchUserProfile } from './features/userSlice'
@@ -27,7 +27,7 @@ function App() {
     }
   }, [dispatch]) */
 
-  useEffect(() => {
+  /*   useEffect(() => {
     const refreshProfile = async () => {
       const email = localStorage.getItem('email')
       const password = localStorage.getItem('password')
@@ -44,6 +44,12 @@ function App() {
       }
     }
     refreshProfile()
+  }, [dispatch]) */
+
+  useEffect(() => {
+    if (localStorage.getItem('rememberMe') === 'false') {
+      dispatch(logout())
+    }
   }, [dispatch])
 
   return (
