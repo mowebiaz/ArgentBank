@@ -101,6 +101,281 @@ paths:
           description: Invalid Fields
         '500':
           description: Internal Server Error
+  /transactions/{userId}:
+    get:
+      tags:
+        - Transactions Module
+      summary: View all transactions for a connected user 
+      description: Retrieve all transactions for a connected user
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          type: string
+          description: ID of the user
+      responses:
+        200:
+          description: Transactions retrieved successfully
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/TransactionDetail'
+        400:
+          description: Invalid user ID
+        401:
+          description: Authorization information is missing or invalid
+        404:
+          description: Transactions not found
+        500:
+          description: Internal server error
+  /transactions/{userId}/{transactionId}:
+    get:
+      security:
+        - Bearer: []
+      tags:
+        - Transactions Module
+      summary: View details of a transaction
+      description: Retrieve the details of a specific transaction for a connected user
+      parameters:
+        - in: path
+          name: userId
+          description: ID of the user
+          required: true
+          type: string
+        - in: path
+          name: transactionId
+          description: ID of the transaction
+          required: true
+          type: string
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Transaction details retrieved successfully
+          schema:
+            $ref: '#/definitions/TransactionDetail'
+        '400':
+          description: Invalid user ID or transaction ID
+        '401':
+          description: Authorization information is missing or invalid
+        '404':
+          description: Transaction not found
+        '500':
+          description: Internal Server Error
+  /transactions/{userId}/{transactionId}/category:
+    put:
+      security:
+        - Bearer: []
+      tags:
+        - Transactions Module
+      summary: Update category of a transaction
+      description: Update the category of a transaction for a connected user
+      parameters:
+        - in: path
+          name: userId
+          description: ID of the user
+          required: true
+          type: string
+        - in: path
+          name: transactionId
+          description: ID of the transaction
+          required: true
+          type: string
+        - in: body
+          name: category
+          description: New category for the transaction
+          required: true
+          schema:
+            $ref: '#/definitions/TransactionUpdateCategory'
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Transaction category updated successfully
+          schema:
+            $ref: '#/definitions/TransactionUpdateCategoryResponse'
+        '400':
+          description: Invalid user ID or transaction ID
+        '401':
+          description: Authorization information is missing or invalid
+        '404':
+          description: Transaction not found
+        '500':
+          description: Internal Server Error
+  /transactions/{userId}/{transactionId}/note:
+    post:
+      security:
+        - Bearer: []
+      tags:
+        - Transactions Module
+      summary: Add a note to a transaction
+      description: Add a note to a transaction for a connected user
+      parameters:
+        - in: path
+          name: userId
+          description: ID of the user
+          required: true
+          type: string
+        - in: path
+          name: transactionId
+          description: ID of the transaction
+          required: true
+          type: string
+        - in: body
+          name: note
+          description: Note for the transaction
+          required: true
+          schema:
+            $ref: '#/definitions/TransactionNote'
+      produces:
+        - application/json
+      responses:
+        '201':
+          description: Transaction note added successfully
+          schema:
+            $ref: '#/definitions/TransactionNoteResponse'
+        '400':
+          description: Invalid user ID or transaction ID
+        '401':
+          description: Authorization information is missing or invalid
+        '404':
+          description: Transaction not found
+        '500':
+          description: Internal Server Error
+    put:
+      security:
+        - Bearer: []
+      tags:
+        - Transactions Module
+      summary: Update note of a transaction
+      description: Update the note of a transaction for a connected user
+      parameters:
+        - in: path
+          name: userId
+          description: ID of the user
+          required: true
+          type: string
+        - in: path
+          name: transactionId
+          description: ID of the transaction
+          required: true
+          type: string
+        - in: body
+          name: note
+          description: New note for the transaction
+          required: true
+          schema:
+            $ref: '#/definitions/TransactionNote'
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Transaction note updated successfully
+          schema:
+            $ref: '#/definitions/TransactionNoteResponse'
+        '400':
+          description: Invalid user ID or transaction ID
+        '401':
+          description: Authorization information is missing or invalid
+        '404':
+          description: Transaction not found
+        '500':
+          description: Internal Server Error
+    delete:
+      security:
+        - Bearer: []
+      tags:
+        - Transactions Module
+      summary: Delete note of a transaction
+      description: Delete the note of a transaction for a connected user
+      parameters:
+        - in: path
+          name: userId
+          description: ID of the user
+          required: true
+          type: string
+        - in: path
+          name: transactionId
+          description: ID of the transaction
+          required: true
+          type: string
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Transaction note deleted successfully
+        '400':
+          description: Invalid user ID or transaction ID
+        '401':
+          description: Authorization information is missing or invalid
+        '404':
+          description: Transaction not found
+        '500':
+          description: Internal Server Error
+  /transactions/{userId}/categories:
+    get:
+      security:
+        - Bearer: []
+      tags:
+        - Transactions Module
+      summary: View all categories
+      description: Retrieve available categories for transactions for a connected user.
+      parameters:
+        - in: path
+          name: userId
+          description: ID of the user
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Categories retrieved successfully
+          schema:
+            $ref: '#/definitions/Categories'
+        '400':
+          description: Invalid user ID
+        '401': 
+          description: Authorization information is missing or invalid
+        '404':
+          description: User not found
+        '500':
+          description: Internal Server Error
+    put:
+      security:
+        - Bearer: []
+      tags:
+        - Transactions Module
+      summary: Update list of categories
+      description: Update available categories for transactions for a connected user.
+      parameters:
+        - in: path
+          name: userId
+          description: ID of the user
+          required: true
+          type: string
+        - in: body
+          name: categories
+          description: New list of categories
+          required: true
+          schema:
+            $ref: '#/definitions/Categories'
+      #consumes:
+        #- application/json
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: list of categories updated successfully
+          schema:
+            $ref: '#/definitions/Categories'
+        '400':
+          description: Invalid user ID
+        '401': 
+          description: Authorization information is missing or invalid
+        '404':
+          description: User not found
+        '500':
+          description: Internal Server Error
+
 securityDefinitions:
   Bearer:
     type: apiKey
@@ -156,3 +431,69 @@ definitions:
     properties:
       userName:
         type: string
+  TransactionDetail:
+    type: object
+    properties:
+      transactionId:
+        type: string
+        description: ID of the transaction
+      amount:
+        type: number
+        description: Amount of the transaction
+      date:
+        type: string
+        format: date-time 
+        description: Date of the transaction
+      account:
+        type: string
+        description: Account of the transaction
+      description:
+        type: string
+        description: Description of the transaction
+      transactionType:
+        type: string
+        description: Type of the transaction
+      category:
+        type: string
+        description: Category of the transaction
+      note:
+        type: string
+        description: Note added to the transaction
+  TransactionUpdateCategory:
+    type: object
+    properties:
+      category:
+        type: string
+        description: Category of the transaction
+  TransactionUpdateCategoryResponse:
+    type: object
+    properties:
+      transactionId:
+        type: string
+        description: ID of the transaction
+      category:
+        type: string
+        description: New category of the transaction
+  TransactionNote:
+    type: object
+    properties:
+      note:
+        type: string
+        description: Note of the transaction
+  TransactionNoteResponse:
+    type: object
+    properties:
+      transactionId:
+        type: string
+        description: ID of the transaction
+      note:
+        type: string
+        description: New note of the transaction
+  Categories:
+    type: object
+    properties:
+      categories:
+        type: array
+        description: List of available categories
+        items:
+          type: string
