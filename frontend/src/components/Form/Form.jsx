@@ -3,11 +3,11 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleUser } from '@fortawesome/free-solid-svg-icons'
-import { userLogin } from '../../features/authSlice'
-import { fetchUserProfile } from '../../features/userSlice'
 import { Input } from '../Input/Input'
 import { Button } from '../Button/Button'
-import { ErrorMessage } from '../Notifications/Notifications'
+import { ErrorMessage, LoadingMessage } from '../Notifications/Notifications'
+import { userLogin } from '../../features/authSlice'
+import { fetchUserProfile } from '../../features/userSlice'
 import './Form.scss'
 
 export function Form() {
@@ -30,30 +30,18 @@ export function Form() {
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
-  /*   useEffect(() => {
-    if (isAuthenticated && !user) {
-      dispatch(fetchUserProfile())
-    }
-  }, [dispatch, isAuthenticated, user])
-
-  useEffect(() => {
-    if (user) {
-      navigate('/profile')
-    }
-  }, [user, navigate]) */
-
   /**
-   * if authenticated user , fetches the user profile
+   * if authenticated user, fetches the user profile
    * and navigates to the profile page
    */
   useEffect(() => {
     const fetchAndNavigate = async () => {
       if (isAuthenticated) {
         try {
-          await dispatch(fetchUserProfile()).unwrap() // unwrap est utilisé pour obtenir la réponse directement et permettre le catch
-          navigate('/profile') // Naviguer seulement si le fetch est réussi
+          await dispatch(fetchUserProfile()).unwrap()
+          navigate('/profile')
         } catch (error) {
-          console.log('Failed to fetch user profile:', error) // Gérer l'erreur ici sans naviguer
+          console.log('Failed to fetch user profile:', error)
         }
       }
     }
@@ -67,6 +55,14 @@ export function Form() {
     } catch (error) {
       console.error('Failed to login user:', error)
     }
+  }
+
+  if (userLoading) {
+    return <LoadingMessage>Loading user profile...</LoadingMessage>
+  }
+
+  if (userError) {
+    return <ErrorMessage>Failed to fetch user profile</ErrorMessage>
   }
 
   return (
@@ -105,8 +101,6 @@ export function Form() {
           content="Remember me"
           value={userInfo.rememberMe}
           labelFirst={false}
-          //checked={rememberMe}
-          //onChange={(e) => setRememberMe(e.target.checked)}
           onChange={(e) =>
             setUserInfo({ ...userInfo, rememberMe: e.target.checked })
           }
@@ -120,8 +114,6 @@ export function Form() {
           {authLoading ? 'Loading...' : 'Sign In'}
         </Button>
       </form>
-      {userLoading && <p>Loading user profile...</p>}
-      {userError && <ErrorMessage>Failed to fetch user profile</ErrorMessage>}
     </section>
   )
 }

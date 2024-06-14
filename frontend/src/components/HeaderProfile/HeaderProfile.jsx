@@ -6,7 +6,6 @@ import { EditUserInfo } from '../EditUserInfo/EditUserInfo'
 import './HeaderProfile.scss'
 
 
-// ajouter le name en fonction du state
 export function HeaderProfile() {
   const [isEditing, setIsEditing] = useState(false)
   const { user } = useSelector((state) => state.user)

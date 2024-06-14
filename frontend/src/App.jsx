@@ -45,12 +45,15 @@ function App() {
     }
     refreshProfile()
   }, [dispatch]) */
-
+ 
   useEffect(() => {
-    if (localStorage.getItem('rememberMe') === 'false') {
+    const rememberMe = localStorage.getItem('rememberMe')
+    if (rememberMe && rememberMe === 'false') {
       dispatch(logout())
+    } else {
+      return
     }
-  }, [dispatch])
+  }, [dispatch]) 
 
   return (
     <>

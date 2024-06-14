@@ -7,7 +7,7 @@ import './Home.scss'
 
 export function Home() {
   return (
-    <main>
+    <main className='main'>
       <Hero />
       <section className="cards">
         <h2 className="sr-only">Features</h2>

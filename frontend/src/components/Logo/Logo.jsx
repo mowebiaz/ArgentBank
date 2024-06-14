@@ -12,6 +12,7 @@ export function Logo() {
         className="logo__image"
         src={logo}
         alt="Argent Bank Logo"
+        width={200}
       />
       <h1 className="sr-only">Argent Bank</h1>
     </NavLink>

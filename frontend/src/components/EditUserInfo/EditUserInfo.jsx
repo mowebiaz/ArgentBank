@@ -20,8 +20,7 @@ export function EditUserInfo({ setIsEditing }) {
   const handleSave = async (e) => {
     e.preventDefault()
     try {
-      dispatch(updateUserName(userName))
-      //message de confirmation
+      await dispatch(updateUserName(userName)).unwrap()
       setIsEditing(false)
     } catch (error) {
       console.error('Failed to update username', error)
@@ -35,7 +34,6 @@ export function EditUserInfo({ setIsEditing }) {
           label="userName"
           inputType="text"
           content="User name:"
-          // ou placeholder= userName du useState ?
           placeholder={user.userName}
           onChange={(e) => setUserName(e.target.value)}
         />

@@ -9,6 +9,8 @@ export function Card({ src, alt, title, text }) {
         src={src}
         alt={alt}
         className="card__icon"
+        height={100}
+        width={100}
       />
       <h3 className="card__item-title">{title}</h3>
       <p>{text}</p>

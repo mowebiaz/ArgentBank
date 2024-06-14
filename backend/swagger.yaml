@@ -103,6 +103,8 @@ paths:
           description: Internal Server Error
   /transactions/{userId}:
     get:
+      security:
+        - Bearer: []
       tags:
         - Transactions Module
       summary: View all transactions for a connected user 
