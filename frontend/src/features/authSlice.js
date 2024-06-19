@@ -46,6 +46,9 @@ const authSlice = createSlice({
       localStorage.removeItem('password') */
       localStorage.removeItem('rememberMe')
     },
+    resetError: (state) => {
+      state.error = null
+    },
   },
   extraReducers: (builder) => {
     // Login
@@ -67,4 +70,4 @@ const authSlice = createSlice({
 })
 
 export default authSlice.reducer
-export const { logout } = authSlice.actions
+export const { logout, resetError } = authSlice.actions

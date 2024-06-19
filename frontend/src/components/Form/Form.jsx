@@ -6,7 +6,7 @@ import { faCircleUser } from '@fortawesome/free-solid-svg-icons'
 import { Input } from '../Input/Input'
 import { Button } from '../Button/Button'
 import { ErrorMessage, LoadingMessage } from '../Notifications/Notifications'
-import { userLogin } from '../../features/authSlice'
+import { resetError, userLogin } from '../../features/authSlice'
 import { fetchUserProfile } from '../../features/userSlice'
 import './Form.scss'
 
@@ -29,6 +29,13 @@ export function Form() {
 
   const dispatch = useDispatch()
   const navigate = useNavigate()
+
+  /** reset error message
+   * when user refresh the page
+   */
+  useEffect(() => {
+    dispatch(resetError())
+  }, [dispatch])
 
   /**
    * if authenticated user, fetches the user profile
