@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 import './Card.scss'
 
-
 export function Card({ src, alt, title, text }) {
   return (
     <div className="card__item">

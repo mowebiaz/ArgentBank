@@ -18,14 +18,9 @@ export const userLogin = createAsyncThunk(
         email,
         password,
       })
-      //const { token } = response.data.body
-      //const storage = rememberMe ? localStorage : sessionStorage
-      //storage.setItem('token', token)
-      /*       if (rememberMe) {
-        localStorage.setItem('email', email)
-        localStorage.setItem('password', password)
-      } */
-      localStorage.setItem('rememberMe', rememberMe)
+      const storage = rememberMe ? localStorage : sessionStorage
+      storage.setItem('rememberMe', rememberMe ? 'true' : 'false')
+      storage.setItem('token', response.data.body.token)
       return response.data.body
     } catch (error) {
       return rejectWithValue(error.message)
@@ -42,9 +37,10 @@ const authSlice = createSlice({
       state.isAuthenticated = false
       state.loading = false
       state.error = null
-      /*       localStorage.removeItem('email')
-      localStorage.removeItem('password') */
       localStorage.removeItem('rememberMe')
+      localStorage.removeItem('token')
+      sessionStorage.removeItem('rememberMe')
+      sessionStorage.removeItem('token')
     },
     resetError: (state) => {
       state.error = null

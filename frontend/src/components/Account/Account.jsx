@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types'
 import { Button } from '../Button/Button'
 import './Account.scss'
-// à revoir car ça dépend de l'utilisateur
 export function Account({ title, amount, description }) {
   return (
     <section className="account">

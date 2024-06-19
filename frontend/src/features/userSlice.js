@@ -14,11 +14,6 @@ export const fetchUserProfile = createAsyncThunk(
   'user/profile',
   async (_, { getState, rejectWithValue }) => {
     const { token } = getState().auth
-    //const token = localStorage.getItem('token') || sessionStorage.getItem('token')
-    //const token = sessionToken || localToken
-    /*     if (!token) {
-      return rejectWithValue('No token found')
-    } */
     try {
       const response = await axios.post(
         `${backendURL}/user/profile`,
@@ -38,10 +33,6 @@ export const updateUserName = createAsyncThunk(
   'user/updateUserName',
   async (userName, { getState, rejectWithValue }) => {
     const { token } = getState().auth
-    //const token = localStorage.getItem('token') || sessionStorage.getItem('token')
-    /*     if (!token) {
-      return rejectWithValue('No token found')
-    } */
     try {
       const response = await axios.put(
         `${backendURL}/user/profile`,
