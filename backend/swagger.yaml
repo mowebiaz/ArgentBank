@@ -127,7 +127,7 @@ paths:
         401:
           description: Authorization information is missing or invalid
         404:
-          description: Transactions not found
+          description: Not found
         500:
           description: Internal server error
   /transactions/{userId}/{transactionId}:
@@ -161,7 +161,7 @@ paths:
         '401':
           description: Authorization information is missing or invalid
         '404':
-          description: Transaction not found
+          description: Not Found
         '500':
           description: Internal Server Error
   /transactions/{userId}/{transactionId}/category:
@@ -201,7 +201,7 @@ paths:
         '401':
           description: Authorization information is missing or invalid
         '404':
-          description: Transaction not found
+          description: Not Found
         '500':
           description: Internal Server Error
   /transactions/{userId}/{transactionId}/note:
@@ -241,7 +241,7 @@ paths:
         '401':
           description: Authorization information is missing or invalid
         '404':
-          description: Transaction not found
+          description: Not Found
         '500':
           description: Internal Server Error
     put:
@@ -280,7 +280,7 @@ paths:
         '401':
           description: Authorization information is missing or invalid
         '404':
-          description: Transaction not found
+          description: Not Found
         '500':
           description: Internal Server Error
     delete:
@@ -311,7 +311,7 @@ paths:
         '401':
           description: Authorization information is missing or invalid
         '404':
-          description: Transaction not found
+          description: Not Found
         '500':
           description: Internal Server Error
   /transactions/{userId}/categories:
@@ -338,7 +338,7 @@ paths:
         '401': 
           description: Authorization information is missing or invalid
         '404':
-          description: User not found
+          description: Not Found
         '500':
           description: Internal Server Error
     put:
@@ -374,7 +374,7 @@ paths:
         '401': 
           description: Authorization information is missing or invalid
         '404':
-          description: User not found
+          description: Not Found
         '500':
           description: Internal Server Error
 
