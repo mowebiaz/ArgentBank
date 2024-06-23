@@ -35,15 +35,18 @@ export function EditUserInfo({ setIsEditing }) {
           inputType="text"
           content="User name:"
           placeholder={user.userName}
+          autoComplete="username"
           onChange={(e) => setUserName(e.target.value)}
         />
         <Input
+          label="firstName"
           inputType="text"
           disabled={true}
           content="First name:"
           placeholder={user.firstName}
         />
         <Input
+          label="lastName"
           inputType="text"
           disabled={true}
           content="Last name:"

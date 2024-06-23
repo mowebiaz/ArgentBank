@@ -36,7 +36,7 @@ export function Header() {
           </NavLink>
         )}
 
-        {isAuthenticated ? ( // Sign-out button or login button
+        {isAuthenticated ? ( // Sign-out button or Sign-in button
           <button
             className={'sign-out-button'}
             onClick={handleLogout}
